@@ -1,0 +1,8 @@
+bp 3A85,1,{trace "you killed a grunt\n"; g}
+bp 00B6,1,{trace "you shot a hulk\n"; g}
+bp 0393,1,{trace "family member killed\n"; g}
+bp 036A,1,{trace "you saved a family member\n"; g}
+bp 1CC2,1,{trace "human just got progged!\n"; g}
+bp 1DE0,1,{trace "you killed a brain!\n"; g}
+bp 1202,1,{trace "new enforcer spawned!\n"; g}
+bp 12D5,1,{trace "you killed a spheroid!\n"; g}

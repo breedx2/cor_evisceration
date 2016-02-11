@@ -1,8 +1,16 @@
-bp 3A85,1,{trace "you killed a grunt\n"; g}
-bp 00B6,1,{trace "you shot a hulk\n"; g}
-bp 0393,1,{trace "family member killed\n"; g}
-bp 036A,1,{trace "you saved a family member\n"; g}
-bp 1CC2,1,{trace "human just got progged!\n"; g}
-bp 1DE0,1,{trace "you killed a brain!\n"; g}
-bp 1202,1,{trace "new enforcer spawned!\n"; g}
-bp 12D5,1,{trace "you killed a spheroid!\n"; g}
+evis_init
+bp 276c,1,{evis_print "game booted\n"; g}
+bp 276c,1,{evis_print "game started\n"; g}
+bp 3A85,1,{evis_print "you killed a grunt\n"; g}
+bp 00B6,1,{evis_print "you shot a hulk\n"; g}
+bp 0393,1,{evis_print "family member killed\n"; g}
+bp 036A,1,{evis_print "you saved a family member\n"; g}
+bp 1CC2,1,{evis_print "human just got progged!\n"; g}
+bp 1DE0,1,{evis_print "you killed a brain!\n"; g}
+bp 1202,1,{evis_print "new enforcer spawned!\n"; g}
+bp 12D5,1,{evis_print "you killed a spheroid!\n"; g}
+bp 30EF,1,{evis_print "player has died!\n"; g}
+bp 4CAC,1,{evis_print "quark spawned a tank\n"; g}
+bp 3aa9,1,{evis_print "grunt killed by electrode\n"; g}
+wp c80e,1,w,wpdata==22,{evis_print "enforcer shot\n"; g}
+wp bded,1,w,1,{evis_print "wave number :%x\n",b@bded; g}

@@ -4,9 +4,11 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <ctype.h>
 #include "../devices/machine/nvram.h"
 #include "../emu/debug/debugcon.h"
 #include "../emu/debug/debugcmd.h"
+#include "evis.h"
 
 int mini_printf(running_machine &machine, char *buffer, const char *format, int params, UINT64 *param);
 
@@ -29,4 +31,14 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
     /* then do a printf */
     mini_printf(machine, buffer, param[0], params - 1, &values[1]);
     printf("%s", buffer);
+}
+
+WaveState build_wave(running_machine &machine) {
+    Player player = { { 12, 13 }, 4 };
+    WaveState state(player);
+    return state;
+}
+
+WaveState::WaveState(Player p) {
+    player = p;
 }

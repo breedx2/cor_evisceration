@@ -31,14 +31,39 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
     /* then do a printf */
     mini_printf(machine, buffer, param[0], params - 1, &values[1]);
     printf("%s", buffer);
+
+    WaveState state = build_wave(machine);
+    state.debugPrint();
 }
 
 WaveState build_wave(running_machine &machine) {
-    Player player = { { 12, 13 }, 4 };
+    Player player = build_player(machine);
     WaveState state(player);
     return state;
 }
 
+Player build_player(running_machine &machine) {
+    address_space *addr = find_ram(machine);
+    Player player = { { addr->read_byte(RAM_PLAYER_X), addr->read_byte(RAM_PLAYER_Y) }, 0 };
+    return player;
+}
+
+address_space *find_ram(running_machine &machine){
+    // first region is the maincpu
+    address_space *addr = machine.memory().first_space();
+    while(addr){
+        if(strcmp(addr->device().tag(), ":maincpu") == 0){
+            return addr;
+        }
+        addr = addr->next();
+    }
+    return NULL;
+}
+
 WaveState::WaveState(Player p) {
     player = p;
+}
+
+void WaveState::debugPrint() {
+    printf(" :: player :: (%02X,%02X) lives %d\n", player.pos.x, player.pos.y, player.lives);
 }

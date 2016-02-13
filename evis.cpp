@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <math.h>
 #include "../devices/machine/nvram.h"
 #include "../emu/debug/debugcon.h"
 #include "../emu/debug/debugcmd.h"
@@ -37,15 +38,28 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
 }
 
 WaveState build_wave(running_machine &machine) {
-    Player player = build_player(machine);
-    WaveState state(player);
+    address_space *addr = find_ram(machine);
+    Player player = build_player(addr);
+    uint8_t waveNum = addr->read_byte(RAM_P1_WAVE);
+    WaveState state(player, waveNum);
     return state;
 }
 
-Player build_player(running_machine &machine) {
-    address_space *addr = find_ram(machine);
-    Player player = { { addr->read_byte(RAM_PLAYER_X), addr->read_byte(RAM_PLAYER_Y) }, 0 };
+Player build_player(address_space *addr) {
+    Point position = { addr->read_byte(RAM_PLAYER_X), addr->read_byte(RAM_PLAYER_Y) };
+    uint8_t lives = addr->read_byte(RAM_P1_LIVES);
+    uint32_t score = read_score(addr);
+    Player player = { position, lives, score };
     return player;
+}
+
+//score is stored in 32 bits, each nibble is a decimal digit, resulting in
+// an 8-digit max score of 99,999,999 
+uint32_t read_score(address_space *addr){
+    uint32_t score = addr->read_dword(RAM_P1_SCORE);
+    char buff[20];
+    sprintf(buff, "%X", score);
+    return atoi(buff);
 }
 
 address_space *find_ram(running_machine &machine){
@@ -60,10 +74,11 @@ address_space *find_ram(running_machine &machine){
     return NULL;
 }
 
-WaveState::WaveState(Player p) {
+WaveState::WaveState(Player p, uint8_t waveNum) {
     player = p;
+    wave = waveNum;
 }
 
 void WaveState::debugPrint() {
-    printf(" :: player :: (%02X,%02X) lives %d\n", player.pos.x, player.pos.y, player.lives);
+    printf(" :: player :: waveNum: %d, pos(%02X,%02X), lives %d, score: %d\n", wave, player.pos.x, player.pos.y, player.lives, player.score);
 }

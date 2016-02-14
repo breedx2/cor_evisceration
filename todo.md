@@ -1,6 +1,3 @@
-* prevent inspection until game start
-* add cruise missiles
-* add quarks
 * add tanks
 * add tankshells
 * adjust points for range

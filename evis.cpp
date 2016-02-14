@@ -63,9 +63,11 @@ WaveState build_wave(running_machine &machine) {
     std::list<Point> cruz       = build_cruise_missiles(addr);
     std::list<Point> quarks     = build_quarks(addr);
     std::list<Point> tanks     = build_tanks(addr);
+    std::list<Point> shells     = build_shells(addr);
 
     WaveState state(player, waveNum, humans, electrodes, grunts, hulks, brains,
-                    spheroids, enforcers, sparks, progs, cruz, quarks, tanks);
+                    spheroids, enforcers, sparks, progs, cruz, quarks, tanks,
+                    shells);
     return state;
 }
 
@@ -146,6 +148,11 @@ std::list<Point> build_tanks(address_space *addr) {
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_TANK });
 }
 
+std::list<Point> build_shells(address_space *addr) {
+    printf("Searching for shells: ");
+    return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_SHELL });
+}
+
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types) {
     std::list<Point> result;
     uint16_t ptr = addr->read_word(startPtr);
@@ -181,7 +188,7 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
                      std::list<Point> gruntList, std::list<Point> hulkList, std::list<Point> brainList,
                      std::list<Point> spheroidList, std::list<Point> enforcerList, std::list<Point> sparkList,
                      std::list<Point> progList, std::list<Point> cruzList, std::list<Point> quarkList,
-                     std::list<Point> tankList) {
+                     std::list<Point> tankList, std::list<Point> shellList) {
     player = p;
     wave   = waveNum;
     humans.assign(humanList.begin(), humanList.end());
@@ -196,6 +203,7 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
     cruiseMissiles.assign(cruzList.begin(), cruzList.end());
     quarks.assign(quarkList.begin(), quarkList.end());
     tanks.assign(tankList.begin(), tankList.end());
+    shells.assign(shellList.begin(), shellList.end());
 }
 
 void WaveState::debugPrint() {
@@ -214,6 +222,7 @@ void WaveState::debugPrint() {
     printPoints("cruiseMissiles", cruiseMissiles);
     printPoints("quarks", quarks);
     printPoints("tanks", tanks);
+    printPoints("shells", shells);
 }
 
 void WaveState::printPoints(const char *name, std::list<Point> points) {

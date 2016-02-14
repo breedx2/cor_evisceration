@@ -31,7 +31,7 @@
 #define OBJ_TYPE_CRUZ   0x20
 #define OBJ_TYPE_TANK   0x50
 #define OBJ_TYPE_QUARK  0x50
-#define OBJ_TYPE_SHELL  0x50
+#define OBJ_TYPE_SHELL  0x4F
 
 struct Point {
     uint8_t x;
@@ -51,7 +51,7 @@ public:
         std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains,
         std::list<Point> spheroids, std::list<Point> enforcers, std::list<Point> sparks,
         std::list<Point> progs, std::list<Point> cruiseMissiles, std::list<Point> quarks,
-        std::list<Point> tanks);
+        std::list<Point> tanks, std::list<Point> shells);
     void debugPrint();
 private:
     Player player;
@@ -68,6 +68,7 @@ private:
     std::list<Point> cruiseMissiles;
     std::list<Point> quarks;
     std::list<Point> tanks;
+    std::list<Point> shells;
 
     void printPoints(const char *name, std::list<Point> points);
 };
@@ -91,6 +92,7 @@ std::list<Point> build_progs(address_space *addr);
 std::list<Point> build_cruise_missiles(address_space *addr);
 std::list<Point> build_quarks(address_space *addr);
 std::list<Point> build_tanks(address_space *addr);
+std::list<Point> build_shells(address_space *addr);
 uint32_t read_score(address_space *addr);
 
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types);

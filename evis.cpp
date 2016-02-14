@@ -7,15 +7,19 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <math.h>
+#include <stdarg.h>
 #include <set>
 #include "../devices/machine/nvram.h"
 #include "../emu/debug/debugcon.h"
 #include "../emu/debug/debugcmd.h"
 #include "evis.h"
 
+#define DEBUG_PRINT false
+
 bool game_started = false;
 
 int mini_printf(running_machine &machine, char *buffer, const char *format, int params, UINT64 *param);
+void debug_printf(const char *format, ...);
 
 void execute_evis_init(running_machine &machine, int ref, int params, const char **param) {
     printf("evisceration initialized.\n");
@@ -89,67 +93,67 @@ uint32_t read_score(address_space *addr) {
 }
 
 std::list<Point> build_humans(address_space *addr) {
-    printf("Searching for humans: ");
+    debug_printf("Searching for humans: ");
     return read_ptr_list(addr, RAM_HUMANS, { OBJ_TYPE_MOMMY, OBJ_TYPE_DADDY, OBJ_TYPE_MIKEY });
 }
 
 std::list<Point> build_electrodes(address_space *addr) {
-    printf("Searching for electrodes: ");
+    debug_printf("Searching for electrodes: ");
     return read_ptr_list(addr, RAM_ELECTRODES, { OBJ_TYPE_ELEC1 });
 }
 
 std::list<Point> build_grunts(address_space *addr) {
-    printf("Searching for grunts: ");
+    debug_printf("Searching for grunts: ");
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_GRUNT });
 }
 
 std::list<Point> build_hulks(address_space *addr) {
-    printf("Searching for hulks: ");
+    debug_printf("Searching for hulks: ");
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_HULK1, OBJ_TYPE_HULK2 });
 }
 
 std::list<Point> build_brains(address_space *addr) {
-    printf("Searching for brains: ");
+    debug_printf("Searching for brains: ");
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_BRAIN });
 }
 
 std::list<Point> build_spheroids(address_space *addr) {
-    printf("Searching for spheroids: ");
+    debug_printf("Searching for spheroids: ");
     return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_SPHE1, OBJ_TYPE_SPHE2 });
 }
 
 std::list<Point> build_enforcers(address_space *addr) {
-    printf("Searching for enforcers: ");
+    debug_printf("Searching for enforcers: ");
     return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_ENFOR });
 }
 
 std::list<Point> build_sparks(address_space *addr) {
-    printf("Searching for sparks: ");
+    debug_printf("Searching for sparks: ");
     return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_SPARK });
 }
 
 std::list<Point> build_progs(address_space *addr) {
-    printf("Searching for progs: ");
+    debug_printf("Searching for progs: ");
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_PROG });
 }
 
 std::list<Point> build_cruise_missiles(address_space *addr) {
-    printf("Searching for cruise missiles: ");
+    debug_printf("Searching for cruise missiles: ");
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_CRUZ });
 }
 
 std::list<Point> build_quarks(address_space *addr) {
-    printf("Searching for quarks: ");
+    debug_printf("Searching for quarks: ");
     return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_QUARK });
 }
 
 std::list<Point> build_tanks(address_space *addr) {
-    printf("Searching for tanks: ");
+    debug_printf("Searching for tanks: ");
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_TANK });
 }
 
 std::list<Point> build_shells(address_space *addr) {
-    printf("Searching for shells: ");
+    debug_printf("Searching for shells: ");
     return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_SHELL });
 }
 
@@ -159,16 +163,16 @@ std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<
     if (!ptr) {
         return result;
     }
-    printf(" TYPES:");
+    debug_printf(" TYPES:");
     do {
-        printf(" %02X", addr->read_byte(ptr + 2));
+        debug_printf(" %02X", addr->read_byte(ptr + 2));
         if (types.find(addr->read_byte(ptr + 2)) != types.end()) {
             Point p = { addr->read_byte(ptr + 4), addr->read_byte(ptr + 5) };
             result.push_back(p);
         }
         ptr = addr->read_word(ptr);
     } while (ptr);
-    printf("\n");
+    debug_printf("\n");
     return result;
 }
 
@@ -232,4 +236,14 @@ void WaveState::printPoints(const char *name, std::list<Point> points) {
         printf("(%02X, %02X) ", iter->x, iter->y);
     }
     printf("\n");
+}
+
+// A printf that's easy to en/disable
+void debug_printf(const char *format, ...){
+    if(DEBUG_PRINT){
+        va_list args;
+        va_start (args, format);
+        vprintf (format, args);
+        va_end (args);
+    }
 }

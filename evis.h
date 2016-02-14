@@ -13,6 +13,7 @@
 #define RAM_ELECTRODES  0x9823
 //#define RAM_GRUNTS      0x988B
 #define RAM_ENEMIES1    0x9821
+#define RAM_ENEMIES2    0x9817
 
 #define OBJ_TYPE_GRUNT  0x40
 #define OBJ_TYPE_HULK1  0x0C
@@ -22,6 +23,10 @@
 #define OBJ_TYPE_DADDY  0x08
 #define OBJ_TYPE_MIKEY  0x0B
 #define OBJ_TYPE_ELEC1  0x3B
+#define OBJ_TYPE_SPHE1  0x14
+#define OBJ_TYPE_SPHE2  0x15
+#define OBJ_TYPE_ENFOR  0x18
+#define OBJ_TYPE_SPARK  0x1A
 
 struct Point {
     uint8_t x;
@@ -38,7 +43,8 @@ struct Player {
 class WaveState {
 public:
     WaveState(Player player, uint8_t waveNum, std::list<Point> humans, std::list<Point> electrodes,
-        std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains);
+        std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains,
+        std::list<Point> spheroids, std::list<Point> enforcers);
     void debugPrint();
 private:
     Player player;
@@ -48,6 +54,8 @@ private:
     std::list<Point> grunts;
     std::list<Point> hulks;
     std::list<Point> brains;
+    std::list<Point> spheroids;
+    std::list<Point> enforcers;
 
     void printPoints(const char *name, std::list<Point> points);
 };
@@ -61,6 +69,8 @@ std::list<Point> build_electrodes(address_space *addr);
 std::list<Point> build_grunts(address_space *addr);
 std::list<Point> build_hulks(address_space *addr);
 std::list<Point> build_brains(address_space *addr);
+std::list<Point> build_spheroids(address_space *addr);
+std::list<Point> build_enforcers(address_space *addr);
 uint32_t read_score(address_space *addr);
 
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types);

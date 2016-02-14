@@ -14,3 +14,4 @@ bp 4CAC,1,{evis_print "quark spawned a tank\n"; g}
 bp 3aa9,1,{evis_print "grunt killed by electrode\n"; g}
 wp c80e,1,w,wpdata==22,{evis_print "enforcer shot\n"; g}
 wp bded,1,w,1,{evis_print "wave number :%x\n",b@bded; g}
+bp d541,1,{evis_print "coin inserted\n"; g}

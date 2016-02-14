@@ -44,7 +44,7 @@ class WaveState {
 public:
     WaveState(Player player, uint8_t waveNum, std::list<Point> humans, std::list<Point> electrodes,
         std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains,
-        std::list<Point> spheroids, std::list<Point> enforcers);
+        std::list<Point> spheroids, std::list<Point> enforcers, std::list<Point> sparks);
     void debugPrint();
 private:
     Player player;
@@ -56,14 +56,17 @@ private:
     std::list<Point> brains;
     std::list<Point> spheroids;
     std::list<Point> enforcers;
+    std::list<Point> sparks;
 
     void printPoints(const char *name, std::list<Point> points);
 };
 
 void execute_evis_init(running_machine &machine, int ref, int params, const char **param);
 void execute_evis_print(running_machine &machine, int ref, int params, const char **param);
+
 WaveState build_wave(running_machine &machine);
 Player build_player(address_space *addr);
+
 std::list<Point> build_humans(address_space *addr);
 std::list<Point> build_electrodes(address_space *addr);
 std::list<Point> build_grunts(address_space *addr);
@@ -71,6 +74,7 @@ std::list<Point> build_hulks(address_space *addr);
 std::list<Point> build_brains(address_space *addr);
 std::list<Point> build_spheroids(address_space *addr);
 std::list<Point> build_enforcers(address_space *addr);
+std::list<Point> build_sparks(address_space *addr);
 uint32_t read_score(address_space *addr);
 
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types);

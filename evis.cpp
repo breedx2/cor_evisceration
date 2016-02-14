@@ -49,9 +49,10 @@ WaveState build_wave(running_machine &machine) {
     std::list<Point> brains     = build_brains(addr);
     std::list<Point> spheroids  = build_spheroids(addr);
     std::list<Point> enforcers  = build_enforcers(addr);
+    std::list<Point> sparks     = build_sparks(addr);
 
     WaveState state(player, waveNum, humans, electrodes, grunts, hulks, brains,
-                    spheroids, enforcers);
+                    spheroids, enforcers, sparks);
     return state;
 }
 
@@ -107,6 +108,11 @@ std::list<Point> build_enforcers(address_space *addr) {
     return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_ENFOR });
 }
 
+std::list<Point> build_sparks(address_space *addr) {
+    printf("Searching for sparks: ");
+    return read_ptr_list(addr, RAM_ENEMIES2, { OBJ_TYPE_SPARK });
+}
+
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types) {
     std::list<Point> result;
     uint16_t ptr = addr->read_word(startPtr);
@@ -140,7 +146,7 @@ address_space *find_ram(running_machine &machine) {
 
 WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std::list<Point> electrodeList,
                      std::list<Point> gruntList, std::list<Point> hulkList, std::list<Point> brainList,
-                     std::list<Point> spheroidList, std::list<Point> enforcerList) {
+                     std::list<Point> spheroidList, std::list<Point> enforcerList, std::list<Point> sparkList) {
     player = p;
     wave   = waveNum;
     humans.assign(humanList.begin(), humanList.end());
@@ -150,10 +156,11 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
     brains.assign(brainList.begin(), brainList.end());
     spheroids.assign(spheroidList.begin(), spheroidList.end());
     enforcers.assign(enforcerList.begin(), enforcerList.end());
+    sparks.assign(sparkList.begin(), sparkList.end());
 }
 
 void WaveState::debugPrint() {
-    printf("--------------------------------------------\n");
+    printf("\n--------------------------------------------\n");
     printf(" :: player :: waveNum: %d, pos(%02X,%02X), lives %d, score: %d\n",
            wave, player.pos.x, player.pos.y, player.lives, player.score);
     printPoints("humans", humans);
@@ -163,6 +170,7 @@ void WaveState::debugPrint() {
     printPoints("brains", brains);
     printPoints("spheroids", spheroids);
     printPoints("enforcers", enforcers);
+    printPoints("sparks", sparks);
 }
 
 void WaveState::printPoints(const char *name, std::list<Point> points) {

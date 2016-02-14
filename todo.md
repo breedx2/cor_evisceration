@@ -1,4 +1,5 @@
 * get coin insert event
-* get player lives remaining
-* tons of stuff
 * specify type of each human
+* add hulks
+* add direction to hulks
+* tons of stuff

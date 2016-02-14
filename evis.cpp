@@ -38,11 +38,13 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
 }
 
 WaveState build_wave(running_machine &machine) {
-    address_space *addr = find_ram(machine);
-    Player player       = build_player(addr);
-    uint8_t waveNum     = addr->read_byte(RAM_P1_WAVE);
-    std::list<Point> humans = build_humans(addr);
-    WaveState state(player, waveNum, humans);
+    address_space *addr         = find_ram(machine);
+    Player player               = build_player(addr);
+    uint8_t waveNum             = addr->read_byte(RAM_P1_WAVE);
+    std::list<Point> humans     = build_humans(addr);
+    std::list<Point> electrodes = build_electrodes(addr);
+    std::list<Point> grunts     = build_grunts(addr);
+    WaveState state(player, waveNum, humans, electrodes, grunts);
     return state;
 }
 
@@ -64,12 +66,25 @@ uint32_t read_score(address_space *addr) {
 }
 
 std::list<Point> build_humans(address_space *addr) {
+    return read_ptr_list(addr, RAM_HUMANS);
+}
+
+std::list<Point> build_electrodes(address_space *addr) {
+    return read_ptr_list(addr, RAM_ELECTRODES);
+}
+
+std::list<Point> build_grunts(address_space *addr) {
+    return read_ptr_list(addr, RAM_GRUNTS);
+}
+
+std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr) {
     std::list<Point> result;
-    uint16_t ptr = addr->read_word(RAM_HUMANS);
+    uint16_t ptr = addr->read_word(startPtr);
     if (!ptr) {
         return result;
     }
     do {
+        printf("TYPE: %X\n", addr->read_byte(ptr+2));
         Point p = { addr->read_byte(ptr + 4), addr->read_byte(ptr + 5) };
         result.push_back(p);
         ptr = addr->read_word(ptr);
@@ -90,17 +105,26 @@ address_space *find_ram(running_machine &machine) {
     return NULL;
 }
 
-WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList) {
+WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std::list<Point> electrodeList,
+                     std::list<Point> gruntList) {
     player = p;
     wave   = waveNum;
     humans.assign(humanList.begin(), humanList.end());
+    electrodes.assign(electrodeList.begin(), electrodeList.end());
+    grunts.assign(gruntList.begin(), gruntList.end());
 }
 
 void WaveState::debugPrint() {
     printf(" :: player :: waveNum: %d, pos(%02X,%02X), lives %d, score: %d\n", wave, player.pos.x, player.pos.y, player.lives, player.score);
-    printf(" :: humans (%ld) :: ", humans.size());
+    printPoints("humans", humans);
+    printPoints("electrodes", electrodes);
+    printPoints("grunts", grunts);
+}
+
+void WaveState::printPoints(const char *name, std::list<Point> points) {
+    printf(" :: %s (%ld) :: ", name, points.size());
     std::list<Point>::iterator iter;
-    for (iter = humans.begin(); iter != humans.end(); ++iter) {
+    for (iter = points.begin(); iter != points.end(); ++iter) {
         printf("(%02X, %02X) ", iter->x, iter->y);
     }
     printf("\n");

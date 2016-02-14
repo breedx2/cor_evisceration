@@ -38,7 +38,7 @@ struct Player {
 class WaveState {
 public:
     WaveState(Player player, uint8_t waveNum, std::list<Point> humans, std::list<Point> electrodes,
-        std::list<Point> grunts, std::list<Point> hulks);
+        std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains);
     void debugPrint();
 private:
     Player player;
@@ -47,6 +47,7 @@ private:
     std::list<Point> electrodes;
     std::list<Point> grunts;
     std::list<Point> hulks;
+    std::list<Point> brains;
 
     void printPoints(const char *name, std::list<Point> points);
 };
@@ -59,6 +60,7 @@ std::list<Point> build_humans(address_space *addr);
 std::list<Point> build_electrodes(address_space *addr);
 std::list<Point> build_grunts(address_space *addr);
 std::list<Point> build_hulks(address_space *addr);
+std::list<Point> build_brains(address_space *addr);
 uint32_t read_score(address_space *addr);
 
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types);

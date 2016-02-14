@@ -46,7 +46,8 @@ WaveState build_wave(running_machine &machine) {
     std::list<Point> electrodes = build_electrodes(addr);
     std::list<Point> grunts     = build_grunts(addr);
     std::list<Point> hulks      = build_hulks(addr);
-    WaveState state(player, waveNum, humans, electrodes, grunts, hulks);
+    std::list<Point> brains     = build_brains(addr);
+    WaveState state(player, waveNum, humans, electrodes, grunts, hulks, brains);
     return state;
 }
 
@@ -87,6 +88,11 @@ std::list<Point> build_hulks(address_space *addr) {
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_HULK1, OBJ_TYPE_HULK2 });
 }
 
+std::list<Point> build_brains(address_space *addr) {
+    printf("Searching for brains...");
+    return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_BRAIN });
+}
+
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types) {
     std::list<Point> result;
     uint16_t ptr = addr->read_word(startPtr);
@@ -118,13 +124,14 @@ address_space *find_ram(running_machine &machine) {
 }
 
 WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std::list<Point> electrodeList,
-                     std::list<Point> gruntList, std::list<Point> hulkList) {
+                     std::list<Point> gruntList, std::list<Point> hulkList, std::list<Point> brainList) {
     player = p;
     wave   = waveNum;
     humans.assign(humanList.begin(), humanList.end());
     electrodes.assign(electrodeList.begin(), electrodeList.end());
     grunts.assign(gruntList.begin(), gruntList.end());
     hulks.assign(hulkList.begin(), hulkList.end());
+    brains.assign(brainList.begin(), brainList.end());
 }
 
 void WaveState::debugPrint() {
@@ -134,6 +141,7 @@ void WaveState::debugPrint() {
     printPoints("electrodes", electrodes);
     printPoints("grunts", grunts);
     printPoints("hulks", hulks);
+    printPoints("brains", brains);
 }
 
 void WaveState::printPoints(const char *name, std::list<Point> points) {

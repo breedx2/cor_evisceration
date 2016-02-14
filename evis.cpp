@@ -37,12 +37,12 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
     mini_printf(machine, buffer, param[0], params - 1, &values[1]);
     printf("%s", buffer);
 
-    if(!game_started) return;
+    if (!game_started) return;
     WaveState state = build_wave(machine);
     state.debugPrint();
 }
 
-void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param){
+void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param) {
     game_started = true;
     printf("Game started!\n");
 }
@@ -62,7 +62,7 @@ WaveState build_wave(running_machine &machine) {
     std::list<Point> progs      = build_progs(addr);
     std::list<Point> cruz       = build_cruise_missiles(addr);
     std::list<Point> quarks     = build_quarks(addr);
-    std::list<Point> tanks     = build_tanks(addr);
+    std::list<Point> tanks      = build_tanks(addr);
     std::list<Point> shells     = build_shells(addr);
 
     WaveState state(player, waveNum, humans, electrodes, grunts, hulks, brains,

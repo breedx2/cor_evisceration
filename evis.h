@@ -50,7 +50,8 @@ public:
     WaveState(Player player, uint8_t waveNum, std::list<Point> humans, std::list<Point> electrodes,
         std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains,
         std::list<Point> spheroids, std::list<Point> enforcers, std::list<Point> sparks,
-        std::list<Point> progs, std::list<Point> cruiseMissiles, std::list<Point> quarks);
+        std::list<Point> progs, std::list<Point> cruiseMissiles, std::list<Point> quarks,
+        std::list<Point> tanks);
     void debugPrint();
 private:
     Player player;
@@ -66,6 +67,7 @@ private:
     std::list<Point> progs;
     std::list<Point> cruiseMissiles;
     std::list<Point> quarks;
+    std::list<Point> tanks;
 
     void printPoints(const char *name, std::list<Point> points);
 };
@@ -88,6 +90,7 @@ std::list<Point> build_sparks(address_space *addr);
 std::list<Point> build_progs(address_space *addr);
 std::list<Point> build_cruise_missiles(address_space *addr);
 std::list<Point> build_quarks(address_space *addr);
+std::list<Point> build_tanks(address_space *addr);
 uint32_t read_score(address_space *addr);
 
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types);

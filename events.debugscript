@@ -1,6 +1,6 @@
 evis_init
 bp 276c,1,{evis_print "game booted\n"; g}
-bp 276c,1,{evis_print "game started\n"; g}
+bp 276c,1,{evis_game_start ; g}
 bp 3A85,1,{evis_print "you killed a grunt\n"; g}
 bp 00B6,1,{evis_print "you shot a hulk\n"; g}
 bp 0393,1,{evis_print "family member killed\n"; g}

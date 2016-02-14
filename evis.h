@@ -28,6 +28,7 @@
 #define OBJ_TYPE_ENFOR  0x18
 #define OBJ_TYPE_SPARK  0x1A
 #define OBJ_TYPE_PROG   0x05
+#define OBJ_TYPE_CRUZ   0x20
 
 struct Point {
     uint8_t x;
@@ -46,7 +47,7 @@ public:
     WaveState(Player player, uint8_t waveNum, std::list<Point> humans, std::list<Point> electrodes,
         std::list<Point> grunts, std::list<Point> hulks, std::list<Point> brains,
         std::list<Point> spheroids, std::list<Point> enforcers, std::list<Point> sparks,
-        std::list<Point> progs);
+        std::list<Point> progs, std::list<Point> cruiseMissiles);
     void debugPrint();
 private:
     Player player;
@@ -60,12 +61,14 @@ private:
     std::list<Point> enforcers;
     std::list<Point> sparks;
     std::list<Point> progs;
+    std::list<Point> cruiseMissiles;
 
     void printPoints(const char *name, std::list<Point> points);
 };
 
 void execute_evis_init(running_machine &machine, int ref, int params, const char **param);
 void execute_evis_print(running_machine &machine, int ref, int params, const char **param);
+void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param);
 
 WaveState build_wave(running_machine &machine);
 Player build_player(address_space *addr);
@@ -79,6 +82,7 @@ std::list<Point> build_spheroids(address_space *addr);
 std::list<Point> build_enforcers(address_space *addr);
 std::list<Point> build_sparks(address_space *addr);
 std::list<Point> build_progs(address_space *addr);
+std::list<Point> build_cruise_missiles(address_space *addr);
 uint32_t read_score(address_space *addr);
 
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types);

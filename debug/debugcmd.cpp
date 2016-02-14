@@ -405,6 +405,7 @@ void debug_command_init(running_machine &machine)
 
 	debug_console_register_command(machine, "evis_init",    CMDFLAG_NONE, 0, 0, 1, execute_evis_init);
 	debug_console_register_command(machine, "evis_print",   CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, execute_evis_print);
+	debug_console_register_command(machine, "evis_game_start",   CMDFLAG_NONE, 0, 0, 1, execute_evis_game_start);
 
 	machine.add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(debug_command_exit), &machine));
 

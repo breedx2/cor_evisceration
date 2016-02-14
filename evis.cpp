@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -11,6 +12,8 @@
 #include "../emu/debug/debugcon.h"
 #include "../emu/debug/debugcmd.h"
 #include "evis.h"
+
+bool game_started = false;
 
 int mini_printf(running_machine &machine, char *buffer, const char *format, int params, UINT64 *param);
 
@@ -34,8 +37,14 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
     mini_printf(machine, buffer, param[0], params - 1, &values[1]);
     printf("%s", buffer);
 
+    if(!game_started) return;
     WaveState state = build_wave(machine);
     state.debugPrint();
+}
+
+void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param){
+    game_started = true;
+    printf("Game started!\n");
 }
 
 WaveState build_wave(running_machine &machine) {
@@ -51,9 +60,10 @@ WaveState build_wave(running_machine &machine) {
     std::list<Point> enforcers  = build_enforcers(addr);
     std::list<Point> sparks     = build_sparks(addr);
     std::list<Point> progs      = build_progs(addr);
+    std::list<Point> cruz       = build_cruise_missiles(addr);
 
     WaveState state(player, waveNum, humans, electrodes, grunts, hulks, brains,
-                    spheroids, enforcers, sparks, progs);
+                    spheroids, enforcers, sparks, progs, cruz);
     return state;
 }
 
@@ -119,6 +129,11 @@ std::list<Point> build_progs(address_space *addr) {
     return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_PROG });
 }
 
+std::list<Point> build_cruise_missiles(address_space *addr) {
+    printf("Searching for cruise missiles: ");
+    return read_ptr_list(addr, RAM_ENEMIES1, { OBJ_TYPE_CRUZ });
+}
+
 std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<uint8_t> types) {
     std::list<Point> result;
     uint16_t ptr = addr->read_word(startPtr);
@@ -153,7 +168,7 @@ address_space *find_ram(running_machine &machine) {
 WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std::list<Point> electrodeList,
                      std::list<Point> gruntList, std::list<Point> hulkList, std::list<Point> brainList,
                      std::list<Point> spheroidList, std::list<Point> enforcerList, std::list<Point> sparkList,
-                     std::list<Point> progList) {
+                     std::list<Point> progList, std::list<Point> cruzList) {
     player = p;
     wave   = waveNum;
     humans.assign(humanList.begin(), humanList.end());
@@ -165,6 +180,7 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
     enforcers.assign(enforcerList.begin(), enforcerList.end());
     sparks.assign(sparkList.begin(), sparkList.end());
     progs.assign(progList.begin(), progList.end());
+    cruiseMissiles.assign(cruzList.begin(), cruzList.end());
 }
 
 void WaveState::debugPrint() {
@@ -180,6 +196,7 @@ void WaveState::debugPrint() {
     printPoints("enforcers", enforcers);
     printPoints("sparks", sparks);
     printPoints("progs", progs);
+    printPoints("cruiseMissiles", cruiseMissiles);
 }
 
 void WaveState::printPoints(const char *name, std::list<Point> points) {

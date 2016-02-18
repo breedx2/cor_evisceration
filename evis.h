@@ -58,7 +58,20 @@ public:
         std::list<Point> spheroids, std::list<Point> enforcers, std::list<Point> sparks,
         std::list<Point> progs, std::list<Point> cruiseMissiles, std::list<Point> quarks,
         std::list<Point> tanks, std::list<Point> shells);
-    void debugPrint();
+    void debugPrint();  //todo: deprecate
+    std::list<Point> getHumans(){ return std::list<Point>(humans); }
+    std::list<Point> getElectrodes(){ return std::list<Point>(electrodes); }
+    std::list<Point> getGrunts(){ return std::list<Point>(grunts); }
+    std::list<Point> getHulks(){ return std::list<Point>(hulks); }
+    std::list<Point> getBrains(){ return std::list<Point>(brains); }
+    std::list<Point> getSpheroids(){ return std::list<Point>(spheroids); }
+    std::list<Point> getEnforcers(){ return std::list<Point>(enforcers); }
+    std::list<Point> getSparks(){ return std::list<Point>(sparks); }
+    std::list<Point> getProgs(){ return std::list<Point>(progs); }
+    std::list<Point> getCruiseMissiles(){ return std::list<Point>(cruiseMissiles); }
+    std::list<Point> getQuarks(){ return std::list<Point>(quarks); }
+    std::list<Point> getTanks(){ return std::list<Point>(tanks); }
+    std::list<Point> getShells(){ return std::list<Point>(shells); }
 private:
     Player player;
     uint8_t wave;

@@ -21,6 +21,17 @@ int Sender::start() {
     return 0;
 }
 
-void sendState(WaveState state) {
+void Sender::sendState(WaveState state) {
     printf("sending wave state\n");
+    std::string message = buildMessage(state);
+    int rc = sendto(sock, message.data(), message.length(), 0, (struct sockaddr *) &server_addr, sizeof(server_addr));
+    if (rc == -1) {
+        perror("sendto() failed!");
+        exit(1);
+    }
+}
+
+std::string Sender::buildMessage(WaveState state) {
+    std::string s = "todo";
+    return s;
 }

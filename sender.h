@@ -3,6 +3,7 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <string.h>
 #include "evis.h"
 
 class Sender {
@@ -19,6 +20,8 @@ private:
     int port;
     int sock;
     struct sockaddr_in server_addr;
+
+    std::string buildMessage(WaveState);
 };
 
 #endif

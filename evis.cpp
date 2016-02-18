@@ -47,6 +47,7 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
     if (!game_started) return;
     WaveState state = build_wave(machine);
     state.debugPrint();
+    sender.sendState(state);
 }
 
 void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param) {

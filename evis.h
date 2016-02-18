@@ -2,6 +2,7 @@
 #ifndef EVIS_H
 #define EVIS_H
 
+#include <set>
 #include "emu.h"
 
 #define RAM_PLAYER_X    0x985E
@@ -33,9 +34,11 @@
 #define OBJ_TYPE_QUARK  0x50
 #define OBJ_TYPE_SHELL  0x4F
 
-
 #define BOARD_MIN_X     0x07
 #define BOARD_MIN_Y     0x18
+
+#define SEND_HOST       "127.0.0.1"
+#define SEND_PORT       2084
 
 struct Point {
     uint8_t x;

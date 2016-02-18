@@ -8,20 +8,23 @@
 #include <ctype.h>
 #include <math.h>
 #include <stdarg.h>
-#include <set>
 #include "../devices/machine/nvram.h"
 #include "../emu/debug/debugcon.h"
 #include "../emu/debug/debugcmd.h"
+#include "sender.h"
 #include "evis.h"
 
 #define DEBUG_PRINT false
 
 bool game_started = false;
 
+Sender sender(SEND_HOST, SEND_PORT);
+
 int mini_printf(running_machine &machine, char *buffer, const char *format, int params, UINT64 *param);
 void debug_printf(const char *format, ...);
 
 void execute_evis_init(running_machine &machine, int ref, int params, const char **param) {
+    sender.start();
     printf("evisceration initialized.\n");
 }
 

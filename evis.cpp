@@ -76,7 +76,9 @@ WaveState build_wave(running_machine &machine) {
 }
 
 Player build_player(address_space *addr) {
-    Point position = { addr->read_byte(RAM_PLAYER_X), addr->read_byte(RAM_PLAYER_Y) };
+    uint8_t x = addr->read_byte(RAM_PLAYER_X) - BOARD_MIN_X;
+    uint8_t y = addr->read_byte(RAM_PLAYER_Y) - BOARD_MIN_Y;
+    Point position = { x, y };
     uint8_t lives  = addr->read_byte(RAM_P1_LIVES);
     uint32_t score = read_score(addr);
     Player player  = { position, lives, score };
@@ -167,8 +169,9 @@ std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<
     do {
         debug_printf(" %02X", addr->read_byte(ptr + 2));
         if (types.find(addr->read_byte(ptr + 2)) != types.end()) {
-            Point p = { addr->read_byte(ptr + 4), addr->read_byte(ptr + 5) };
-            result.push_back(p);
+            uint8_t x = addr->read_byte(ptr + 4);
+            uint8_t y = addr->read_byte(ptr + 5);
+            result.push_back({ x, y });
         }
         ptr = addr->read_word(ptr);
     } while (ptr);
@@ -212,7 +215,7 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
 
 void WaveState::debugPrint() {
     printf("\n--------------------------------------------\n");
-    printf(" :: player :: waveNum: %d, pos(%02X,%02X), lives %d, score: %d\n",
+    printf(" :: player :: waveNum: %d, pos(%d,%d), lives %d, score: %d\n",
            wave, player.pos.x, player.pos.y, player.lives, player.score);
     printPoints("humans", humans);
     printPoints("electrodes", electrodes);
@@ -233,7 +236,7 @@ void WaveState::printPoints(const char *name, std::list<Point> points) {
     printf(" :: %s (%ld) :: ", name, points.size());
     std::list<Point>::iterator iter;
     for (iter = points.begin(); iter != points.end(); ++iter) {
-        printf("(%02X, %02X) ", iter->x, iter->y);
+        printf("(%d, %d) ", iter->x, iter->y);
     }
     printf("\n");
 }

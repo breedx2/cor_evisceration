@@ -33,6 +33,10 @@
 #define OBJ_TYPE_QUARK  0x50
 #define OBJ_TYPE_SHELL  0x4F
 
+
+#define BOARD_MIN_X     0x07
+#define BOARD_MIN_Y     0x18
+
 struct Point {
     uint8_t x;
     uint8_t y;
@@ -43,7 +47,6 @@ struct Player {
     uint8_t lives;
     uint32_t score;
 };
-
 
 class WaveState {
 public:

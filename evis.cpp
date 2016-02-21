@@ -64,6 +64,10 @@ void evis_game_over(running_machine &machine, int ref, int params, const char **
     sender.sendMessage(GAME_OVER);
 }
 
+void evis_tank_spawn(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(TANK_SPAWN);
+}
+
 void evis_wave(running_machine &machine, int ref, int params, const char **param) {
     char buffer[1024];
     if (!game_started) return;

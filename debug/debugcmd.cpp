@@ -420,6 +420,7 @@ void debug_command_init(running_machine &machine)
 	debug_console_register_command(machine, "evis_human_progged",   CMDFLAG_NONE, 0, 0, 1, evis_human_progged);
 	debug_console_register_command(machine, "evis_brain_killed",    CMDFLAG_NONE, 0, 0, 1, evis_brain_killed);
 	debug_console_register_command(machine, "evis_spheroid_killed", CMDFLAG_NONE, 0, 0, 1, evis_spheroid_killed);
+	debug_console_register_command(machine, "evis_enforcer_spawn",  CMDFLAG_NONE, 0, 0, 1, evis_enforcer_spawn);
 
 	machine.add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(debug_command_exit), &machine));
 

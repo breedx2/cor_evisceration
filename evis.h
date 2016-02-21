@@ -46,6 +46,8 @@
 #define GRUNT_ELECTRODE "GRUNT_ELECTRODE\n"
 #define GAME_OVER       "GAME_OVER\n"
 #define TANK_SPAWN      "TANK_SPAWN\n"
+#define SAVIOR_DIED     "SAVIOR_DIED\n"
+#define HULK_SHOT       "HULK_SHOT\n"
 
 #define SEND_HOST       "127.0.0.1"
 #define SEND_PORT       2084
@@ -114,6 +116,8 @@ void evis_enforcer_shot(running_machine &machine, int ref, int params, const cha
 void evis_grunt_electrode(running_machine &machine, int ref, int params, const char **param);
 void evis_game_over(running_machine &machine, int ref, int params, const char **param);
 void evis_tank_spawn(running_machine &machine, int ref, int params, const char **param);
+void evis_savior_died(running_machine &machine, int ref, int params, const char **param);
+void evis_hulk_shot(running_machine &machine, int ref, int params, const char **param);
 
 void expand_param(running_machine &machine, int params, const char **param, char *outBuf);
 

@@ -68,6 +68,14 @@ void evis_tank_spawn(running_machine &machine, int ref, int params, const char *
     sender.sendMessage(TANK_SPAWN);
 }
 
+void evis_savior_died(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(SAVIOR_DIED);
+}
+
+void evis_hulk_shot(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(HULK_SHOT);
+}
+
 void evis_wave(running_machine &machine, int ref, int params, const char **param) {
     char buffer[1024];
     if (!game_started) return;

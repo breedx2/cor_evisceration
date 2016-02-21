@@ -413,6 +413,8 @@ void debug_command_init(running_machine &machine)
 	debug_console_register_command(machine, "evis_enforcer_shot",   CMDFLAG_NONE, 0, 0, 1, evis_enforcer_shot);
 	debug_console_register_command(machine, "evis_grunt_electrode",   CMDFLAG_NONE, 0, 0, 1, evis_grunt_electrode);
 	debug_console_register_command(machine, "evis_tank_spawn",   CMDFLAG_NONE, 0, 0, 1, evis_tank_spawn);
+	debug_console_register_command(machine, "evis_savior_died",   CMDFLAG_NONE, 0, 0, 1, evis_savior_died);
+	debug_console_register_command(machine, "evis_hulk_shot",   CMDFLAG_NONE, 0, 0, 1, evis_hulk_shot);
 
 	machine.add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(debug_command_exit), &machine));
 

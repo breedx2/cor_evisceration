@@ -92,6 +92,10 @@ void evis_brain_killed(running_machine &machine, int ref, int params, const char
     sender.sendMessage(BRAIN_KILLED);
 }
 
+void evis_spheroid_killed(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(SPHEROID_KILLED);
+}
+
 void evis_wave(running_machine &machine, int ref, int params, const char **param) {
     char buffer[1024];
     if (!game_started) return;

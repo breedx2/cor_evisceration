@@ -403,22 +403,23 @@ void debug_command_init(running_machine &machine)
 	debug_console_register_command(machine, "input",     CMDFLAG_NONE, 0, 1, 1, execute_input);
 	debug_console_register_command(machine, "dumpkbd",   CMDFLAG_NONE, 0, 0, 1, execute_dumpkbd);
 
-	debug_console_register_command(machine, "evis_init",    CMDFLAG_NONE, 0, 0, 1, evis_init);
-	debug_console_register_command(machine, "evis_print",   CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_print);
-	debug_console_register_command(machine, "evis_game_booted",   CMDFLAG_NONE, 0, 0, 1, evis_game_booted);
-	debug_console_register_command(machine, "evis_game_start",   CMDFLAG_NONE, 0, 0, 1, evis_game_start);
-	debug_console_register_command(machine, "evis_game_over",   CMDFLAG_NONE, 0, 0, 1, evis_game_over);
-	debug_console_register_command(machine, "evis_coin",   CMDFLAG_NONE, 0, 0, 1, evis_coin);
-	debug_console_register_command(machine, "evis_wave",   CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_wave);
+	debug_console_register_command(machine, "evis_init",            CMDFLAG_NONE, 0, 0, 1, evis_init);
+	debug_console_register_command(machine, "evis_print",           CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_print);
+	debug_console_register_command(machine, "evis_game_booted",     CMDFLAG_NONE, 0, 0, 1, evis_game_booted);
+	debug_console_register_command(machine, "evis_game_start",      CMDFLAG_NONE, 0, 0, 1, evis_game_start);
+	debug_console_register_command(machine, "evis_game_over",       CMDFLAG_NONE, 0, 0, 1, evis_game_over);
+	debug_console_register_command(machine, "evis_coin",            CMDFLAG_NONE, 0, 0, 1, evis_coin);
+	debug_console_register_command(machine, "evis_wave",            CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_wave);
 	debug_console_register_command(machine, "evis_enforcer_shot",   CMDFLAG_NONE, 0, 0, 1, evis_enforcer_shot);
-	debug_console_register_command(machine, "evis_grunt_electrode",   CMDFLAG_NONE, 0, 0, 1, evis_grunt_electrode);
-	debug_console_register_command(machine, "evis_tank_spawn",   CMDFLAG_NONE, 0, 0, 1, evis_tank_spawn);
-	debug_console_register_command(machine, "evis_savior_died",   CMDFLAG_NONE, 0, 0, 1, evis_savior_died);
-	debug_console_register_command(machine, "evis_hulk_shot",   CMDFLAG_NONE, 0, 0, 1, evis_hulk_shot);
-	debug_console_register_command(machine, "evis_human_killed",   CMDFLAG_NONE, 0, 0, 1, evis_human_killed);
-	debug_console_register_command(machine, "evis_human_saved",   CMDFLAG_NONE, 0, 0, 1, evis_human_saved);
+	debug_console_register_command(machine, "evis_grunt_electrode", CMDFLAG_NONE, 0, 0, 1, evis_grunt_electrode);
+	debug_console_register_command(machine, "evis_tank_spawn",      CMDFLAG_NONE, 0, 0, 1, evis_tank_spawn);
+	debug_console_register_command(machine, "evis_savior_died",     CMDFLAG_NONE, 0, 0, 1, evis_savior_died);
+	debug_console_register_command(machine, "evis_hulk_shot",       CMDFLAG_NONE, 0, 0, 1, evis_hulk_shot);
+	debug_console_register_command(machine, "evis_human_killed",    CMDFLAG_NONE, 0, 0, 1, evis_human_killed);
+	debug_console_register_command(machine, "evis_human_saved",     CMDFLAG_NONE, 0, 0, 1, evis_human_saved);
 	debug_console_register_command(machine, "evis_human_progged",   CMDFLAG_NONE, 0, 0, 1, evis_human_progged);
-	debug_console_register_command(machine, "evis_brain_killed",   CMDFLAG_NONE, 0, 0, 1, evis_brain_killed);
+	debug_console_register_command(machine, "evis_brain_killed",    CMDFLAG_NONE, 0, 0, 1, evis_brain_killed);
+	debug_console_register_command(machine, "evis_spheroid_killed", CMDFLAG_NONE, 0, 0, 1, evis_spheroid_killed);
 
 	machine.add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(debug_command_exit), &machine));
 

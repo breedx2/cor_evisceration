@@ -8,8 +8,8 @@ bp 00B6,1,{evis_hulk_shot ; g}
 bp 0393,1,{evis_human_killed ; g}
 bp 036A,1,{evis_human_saved ; g}
 bp 1CC2,1,{evis_human_progged ; g}
-bp 1DE0,1,{evis_brain_killed; g}
-bp 12D5,1,{evis_print "you killed a spheroid!\n"; g}
+bp 1DE0,1,{evis_brain_killed ; g}
+bp 12D5,1,{evis_spheroid_killed ; g}
 bp 30EF,1,{evis_savior_died; g}
 bp 4CAC,1,{evis_tank_spawn ; g}
 bp 3aa9,1,{evis_grunt_electrode ; g}

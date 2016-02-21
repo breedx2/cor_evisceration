@@ -29,19 +29,8 @@ void evis_init(running_machine &machine, int ref, int params, const char **param
 }
 
 void evis_print(running_machine &machine, int ref, int params, const char **param) {
-    UINT64 values[MAX_COMMAND_PARAMS];
     char buffer[1024];
-    int i;
-
-    /* validate the other parameters */
-    for (i = 1; i < params; i++) {
-        if (!debug_command_parameter_number(machine, param[i], &values[i])) {
-            return;
-        }
-    }
-
-    /* then do a printf */
-    mini_printf(machine, buffer, param[0], params - 1, &values[1]);
+    expand_param(machine, params, param, buffer);
     printf("%s", buffer);
 
     if (!game_started) return;
@@ -51,13 +40,35 @@ void evis_print(running_machine &machine, int ref, int params, const char **para
 }
 
 void evis_game_booted(running_machine &machine, int ref, int params, const char **param) {
-    game_started = true;
     sender.sendMessage(GAME_BOOTED);
 }
 
 void evis_game_start(running_machine &machine, int ref, int params, const char **param) {
     game_started = true;
     sender.sendMessage(GAME_STARTED);
+}
+
+void evis_coin(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(COIN_INSERTED);
+}
+
+void evis_wave(running_machine &machine, int ref, int params, const char **param) {
+    char buffer[1024];
+    expand_param(machine, params, param, buffer);
+    std::string message = std::string(WAVE)
+        .append(std::to_string(atoi(buffer)+1))
+        .append("\n");
+    sender.sendMessage(message);
+}
+
+void expand_param(running_machine &machine, int params, const char **param, char *outBuf){
+    UINT64 values[MAX_COMMAND_PARAMS];
+    for (int i = 1; i < params; i++) {
+        if (!debug_command_parameter_number(machine, param[i], &values[i])) {
+            return;
+        }
+    }
+    mini_printf(machine, outBuf, param[0], params - 1, &values[1]);
 }
 
 WaveState build_wave(running_machine &machine) {

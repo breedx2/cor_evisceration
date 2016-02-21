@@ -40,6 +40,8 @@
 /* Event constants */
 #define GAME_BOOTED     "GAME_BOOTED\n"
 #define GAME_STARTED    "GAME_STARTED\n"
+#define COIN_INSERTED   "COIN_INSERTED\n"
+#define WAVE            "WAVE\n"
 
 #define SEND_HOST       "127.0.0.1"
 #define SEND_PORT       2084
@@ -102,6 +104,9 @@ void evis_init(running_machine &machine, int ref, int params, const char **param
 void evis_print(running_machine &machine, int ref, int params, const char **param);
 void evis_game_booted(running_machine &machine, int ref, int params, const char **param);
 void evis_game_start(running_machine &machine, int ref, int params, const char **param);
+void evis_coin(running_machine &machine, int ref, int params, const char **param);
+void evis_wave(running_machine &machine, int ref, int params, const char **param);
+void expand_param(running_machine &machine, int params, const char **param, char *outBuf);
 
 WaveState build_wave(running_machine &machine);
 Player build_player(address_space *addr);

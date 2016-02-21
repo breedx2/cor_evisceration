@@ -52,8 +52,21 @@ void evis_coin(running_machine &machine, int ref, int params, const char **param
     sender.sendMessage(COIN_INSERTED);
 }
 
+void evis_enforcer_shot(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(ENFORCER_SHOT);
+}
+
+void evis_grunt_electrode(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(GRUNT_ELECTRODE);
+}
+
+void evis_game_over(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(GAME_OVER);
+}
+
 void evis_wave(running_machine &machine, int ref, int params, const char **param) {
     char buffer[1024];
+    if (!game_started) return;
     expand_param(machine, params, param, buffer);
     std::string message = std::string(WAVE)
         .append(std::to_string(atoi(buffer)+1))

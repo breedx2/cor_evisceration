@@ -407,8 +407,11 @@ void debug_command_init(running_machine &machine)
 	debug_console_register_command(machine, "evis_print",   CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_print);
 	debug_console_register_command(machine, "evis_game_booted",   CMDFLAG_NONE, 0, 0, 1, evis_game_booted);
 	debug_console_register_command(machine, "evis_game_start",   CMDFLAG_NONE, 0, 0, 1, evis_game_start);
+	debug_console_register_command(machine, "evis_game_over",   CMDFLAG_NONE, 0, 0, 1, evis_game_over);
 	debug_console_register_command(machine, "evis_coin",   CMDFLAG_NONE, 0, 0, 1, evis_coin);
 	debug_console_register_command(machine, "evis_wave",   CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_wave);
+	debug_console_register_command(machine, "evis_enforcer_shot",   CMDFLAG_NONE, 0, 0, 1, evis_enforcer_shot);
+	debug_console_register_command(machine, "evis_grunt_electrode",   CMDFLAG_NONE, 0, 0, 1, evis_grunt_electrode);
 
 	machine.add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(debug_command_exit), &machine));
 

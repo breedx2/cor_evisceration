@@ -42,6 +42,9 @@
 #define GAME_STARTED    "GAME_STARTED\n"
 #define COIN_INSERTED   "COIN_INSERTED\n"
 #define WAVE            "WAVE\n"
+#define ENFORCER_SHOT   "ENFORCER_SHOT\n"
+#define GRUNT_ELECTRODE "GRUNT_ELECTRODE\n"
+#define GAME_OVER       "GAME_OVER\n"
 
 #define SEND_HOST       "127.0.0.1"
 #define SEND_PORT       2084
@@ -106,6 +109,10 @@ void evis_game_booted(running_machine &machine, int ref, int params, const char 
 void evis_game_start(running_machine &machine, int ref, int params, const char **param);
 void evis_coin(running_machine &machine, int ref, int params, const char **param);
 void evis_wave(running_machine &machine, int ref, int params, const char **param);
+void evis_enforcer_shot(running_machine &machine, int ref, int params, const char **param);
+void evis_grunt_electrode(running_machine &machine, int ref, int params, const char **param);
+void evis_game_over(running_machine &machine, int ref, int params, const char **param);
+
 void expand_param(running_machine &machine, int params, const char **param, char *outBuf);
 
 WaveState build_wave(running_machine &machine);

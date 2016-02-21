@@ -23,7 +23,10 @@ int Sender::start() {
 
 void Sender::sendState(WaveState state) {
     printf("sending wave state\n");
-    std::string message = buildMessage(state);
+    sendMessage(buildStateMessage(state));
+}
+
+void Sender::sendMessage(std::string message) {
     int rc = sendto(sock, message.data(), message.length(), 0, (struct sockaddr *) &server_addr, sizeof(server_addr));
     if (rc == -1) {
         perror("sendto() failed!");
@@ -31,14 +34,13 @@ void Sender::sendState(WaveState state) {
     }
 }
 
-std::string Sender::buildMessage(WaveState state) {
-    std::string result = "";
+std::string Sender::buildStateMessage(WaveState state) {
+    std::string result = "GAME_STATE\n";
     return
         result.append("player:").append(pointToString(state.getPlayer().pos)).append("\n")
             .append("lives:").append(std::to_string(state.getPlayer().lives)).append("\n")
             .append("score:").append(std::to_string(state.getPlayer().score)).append("\n")
             .append("wave:").append(std::to_string(state.getWave())).append("\n")
-
             .append("humans:").append(pointListToString(state.getHumans())).append("\n")
             .append("electrodes:").append(pointListToString(state.getElectrodes())).append("\n")
             .append("grunts:").append(pointListToString(state.getGrunts())).append("\n")

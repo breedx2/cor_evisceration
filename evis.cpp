@@ -23,12 +23,12 @@ Sender sender(SEND_HOST, SEND_PORT);
 int mini_printf(running_machine &machine, char *buffer, const char *format, int params, UINT64 *param);
 void debug_printf(const char *format, ...);
 
-void execute_evis_init(running_machine &machine, int ref, int params, const char **param) {
+void evis_init(running_machine &machine, int ref, int params, const char **param) {
     sender.start();
     printf("evisceration initialized.\n");
 }
 
-void execute_evis_print(running_machine &machine, int ref, int params, const char **param) {
+void evis_print(running_machine &machine, int ref, int params, const char **param) {
     UINT64 values[MAX_COMMAND_PARAMS];
     char buffer[1024];
     int i;
@@ -50,9 +50,14 @@ void execute_evis_print(running_machine &machine, int ref, int params, const cha
     sender.sendState(state);
 }
 
-void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param) {
+void evis_game_booted(running_machine &machine, int ref, int params, const char **param) {
     game_started = true;
-    printf("Game started!\n");
+    sender.sendMessage(GAME_BOOTED);
+}
+
+void evis_game_start(running_machine &machine, int ref, int params, const char **param) {
+    game_started = true;
+    sender.sendMessage(GAME_STARTED);
 }
 
 WaveState build_wave(running_machine &machine) {
@@ -218,7 +223,7 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
 }
 
 void WaveState::debugPrint() {
-    if(DEBUG_PRINT){
+    if(!DEBUG_PRINT){
         return;
     }
     printf("\n--------------------------------------------\n");

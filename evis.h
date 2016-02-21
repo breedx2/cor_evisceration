@@ -37,6 +37,10 @@
 #define BOARD_MIN_X     0x07
 #define BOARD_MIN_Y     0x18
 
+/* Event constants */
+#define GAME_BOOTED     "GAME_BOOTED\n"
+#define GAME_STARTED    "GAME_STARTED\n"
+
 #define SEND_HOST       "127.0.0.1"
 #define SEND_PORT       2084
 
@@ -94,9 +98,10 @@ private:
     void printPoints(const char *name, std::list<Point> points);
 };
 
-void execute_evis_init(running_machine &machine, int ref, int params, const char **param);
-void execute_evis_print(running_machine &machine, int ref, int params, const char **param);
-void execute_evis_game_start(running_machine &machine, int ref, int params, const char **param);
+void evis_init(running_machine &machine, int ref, int params, const char **param);
+void evis_print(running_machine &machine, int ref, int params, const char **param);
+void evis_game_booted(running_machine &machine, int ref, int params, const char **param);
+void evis_game_start(running_machine &machine, int ref, int params, const char **param);
 
 WaveState build_wave(running_machine &machine);
 Player build_player(address_space *addr);

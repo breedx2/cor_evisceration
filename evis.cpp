@@ -84,6 +84,10 @@ void evis_human_killed(running_machine &machine, int ref, int params, const char
     sender.sendMessage(HUMAN_KILLED);
 }
 
+void evis_human_progged(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(HUMAN_PROGGED);
+}
+
 void evis_wave(running_machine &machine, int ref, int params, const char **param) {
     char buffer[1024];
     if (!game_started) return;

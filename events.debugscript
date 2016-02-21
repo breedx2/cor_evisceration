@@ -6,7 +6,7 @@ bp 3A85,1,{evis_print "you killed a grunt\n"; g}
 bp 00B6,1,{evis_hulk_shot ; g}
 bp 0393,1,{evis_human_killed ; g}
 bp 036A,1,{evis_human_saved ; g}
-bp 1CC2,1,{evis_print "human just got progged!\n"; g}
+bp 1CC2,1,{evis_human_progged ; g}
 bp 1DE0,1,{evis_print "you killed a brain!\n"; g}
 bp 1202,1,{evis_print "new enforcer spawned!\n"; g}
 bp 12D5,1,{evis_print "you killed a spheroid!\n"; g}

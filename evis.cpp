@@ -76,6 +76,14 @@ void evis_hulk_shot(running_machine &machine, int ref, int params, const char **
     sender.sendMessage(HULK_SHOT);
 }
 
+void evis_human_saved(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(HUMAN_SAVED);
+}
+
+void evis_human_killed(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(HUMAN_KILLED);
+}
+
 void evis_wave(running_machine &machine, int ref, int params, const char **param) {
     char buffer[1024];
     if (!game_started) return;

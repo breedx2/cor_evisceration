@@ -418,6 +418,7 @@ void debug_command_init(running_machine &machine)
 	debug_console_register_command(machine, "evis_human_killed",   CMDFLAG_NONE, 0, 0, 1, evis_human_killed);
 	debug_console_register_command(machine, "evis_human_saved",   CMDFLAG_NONE, 0, 0, 1, evis_human_saved);
 	debug_console_register_command(machine, "evis_human_progged",   CMDFLAG_NONE, 0, 0, 1, evis_human_progged);
+	debug_console_register_command(machine, "evis_brain_killed",   CMDFLAG_NONE, 0, 0, 1, evis_brain_killed);
 
 	machine.add_notifier(MACHINE_NOTIFY_EXIT, machine_notify_delegate(FUNC(debug_command_exit), &machine));
 

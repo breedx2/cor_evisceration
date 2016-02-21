@@ -1,5 +1,6 @@
 evis_init
 evis_game_booted
+bp d541,1,{evis_coin ; g}
 bp 276c,1,{evis_game_start ; g}
 bp 3112,1,{evis_game_over ; g}
 bp 3A85,1,{evis_print "you killed a grunt\n"; g}
@@ -7,12 +8,11 @@ bp 00B6,1,{evis_hulk_shot ; g}
 bp 0393,1,{evis_human_killed ; g}
 bp 036A,1,{evis_human_saved ; g}
 bp 1CC2,1,{evis_human_progged ; g}
-bp 1DE0,1,{evis_print "you killed a brain!\n"; g}
-bp 1202,1,{evis_print "new enforcer spawned!\n"; g}
+bp 1DE0,1,{evis_brain_killed; g}
 bp 12D5,1,{evis_print "you killed a spheroid!\n"; g}
 bp 30EF,1,{evis_savior_died; g}
 bp 4CAC,1,{evis_tank_spawn ; g}
 bp 3aa9,1,{evis_grunt_electrode ; g}
+bp 1202,1,{evis_print "new enforcer spawned!\n"; g}
 wp c80e,1,w,wpdata==22,{evis_enforcer_shot ; g}
 wp bded,1,w,1,{evis_wave "%d",b@bded; g}
-bp d541,1,{evis_coin ; g}

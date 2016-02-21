@@ -51,6 +51,7 @@
 #define HUMAN_KILLED    "HUMAN_KILLED\n"
 #define HUMAN_SAVED     "HUMAN_SAVED\n"
 #define HUMAN_PROGGED   "HUMAN_PROGGED\n"
+#define BRAIN_KILLED    "BRAIN_KILLED\n"
 
 #define SEND_HOST       "127.0.0.1"
 #define SEND_PORT       2084
@@ -124,6 +125,7 @@ void evis_hulk_shot(running_machine &machine, int ref, int params, const char **
 void evis_human_killed(running_machine &machine, int ref, int params, const char **param);
 void evis_human_saved(running_machine &machine, int ref, int params, const char **param);
 void evis_human_progged(running_machine &machine, int ref, int params, const char **param);
+void evis_brain_killed(running_machine &machine, int ref, int params, const char **param);
 
 void expand_param(running_machine &machine, int params, const char **param, char *outBuf);
 

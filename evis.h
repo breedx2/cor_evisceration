@@ -38,22 +38,23 @@
 #define BOARD_MIN_Y     0x18
 
 /* Event constants */
-#define GAME_BOOTED     "GAME_BOOTED\n"
-#define GAME_STARTED    "GAME_STARTED\n"
-#define COIN_INSERTED   "COIN_INSERTED\n"
-#define WAVE            "WAVE\n"
-#define ENFORCER_SHOT   "ENFORCER_SHOT\n"
-#define GRUNT_ELECTRODE "GRUNT_ELECTRODE\n"
-#define GAME_OVER       "GAME_OVER\n"
-#define TANK_SPAWN      "TANK_SPAWN\n"
-#define SAVIOR_DIED     "SAVIOR_DIED\n"
-#define HULK_SHOT       "HULK_SHOT\n"
-#define HUMAN_KILLED    "HUMAN_KILLED\n"
-#define HUMAN_SAVED     "HUMAN_SAVED\n"
-#define HUMAN_PROGGED   "HUMAN_PROGGED\n"
-#define BRAIN_KILLED    "BRAIN_KILLED\n"
-#define SPHEROID_KILLED "SPHEROID_KILLED\n"
-#define ENFORCER_SPAWN  "ENFORCER_SPAWN\n"
+#define GAME_BOOTED      "GAME_BOOTED\n"
+#define GAME_STARTED     "GAME_STARTED\n"
+#define COIN_INSERTED    "COIN_INSERTED\n"
+#define WAVE             "WAVE\n"
+#define ENFORCER_SHOT    "ENFORCER_SHOT\n"
+#define ELECTRODE_KILLED "ELECTRODE_KILLED\n"
+#define GRUNT_KILLED     "GRUNT_KILLED\n"
+#define GAME_OVER        "GAME_OVER\n"
+#define TANK_SPAWN       "TANK_SPAWN\n"
+#define SAVIOR_DIED      "SAVIOR_DIED\n"
+#define HULK_SHOT        "HULK_SHOT\n"
+#define HUMAN_KILLED     "HUMAN_KILLED\n"
+#define HUMAN_SAVED      "HUMAN_SAVED\n"
+#define HUMAN_PROGGED    "HUMAN_PROGGED\n"
+#define BRAIN_KILLED     "BRAIN_KILLED\n"
+#define SPHEROID_KILLED  "SPHEROID_KILLED\n"
+#define ENFORCER_SPAWN   "ENFORCER_SPAWN\n"
 
 #define SEND_HOST       "127.0.0.1"
 #define SEND_PORT       2084
@@ -118,8 +119,9 @@ void evis_game_booted(running_machine &machine, int ref, int params, const char 
 void evis_game_start(running_machine &machine, int ref, int params, const char **param);
 void evis_coin(running_machine &machine, int ref, int params, const char **param);
 void evis_wave(running_machine &machine, int ref, int params, const char **param);
+void evis_electrode_killed(running_machine &machine, int ref, int params, const char **param);
+void evis_grunt_killed(running_machine &machine, int ref, int params, const char **param);
 void evis_enforcer_shot(running_machine &machine, int ref, int params, const char **param);
-void evis_grunt_electrode(running_machine &machine, int ref, int params, const char **param);
 void evis_game_over(running_machine &machine, int ref, int params, const char **param);
 void evis_tank_spawn(running_machine &machine, int ref, int params, const char **param);
 void evis_savior_died(running_machine &machine, int ref, int params, const char **param);

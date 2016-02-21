@@ -56,8 +56,12 @@ void evis_enforcer_shot(running_machine &machine, int ref, int params, const cha
     sender.sendMessage(ENFORCER_SHOT);
 }
 
-void evis_grunt_electrode(running_machine &machine, int ref, int params, const char **param) {
-    sender.sendMessage(GRUNT_ELECTRODE);
+void evis_electrode_killed(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(ELECTRODE_KILLED);
+}
+
+void evis_grunt_killed(running_machine &machine, int ref, int params, const char **param) {
+    sender.sendMessage(GRUNT_KILLED);
 }
 
 void evis_game_over(running_machine &machine, int ref, int params, const char **param) {

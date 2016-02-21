@@ -59,6 +59,8 @@ public:
         std::list<Point> progs, std::list<Point> cruiseMissiles, std::list<Point> quarks,
         std::list<Point> tanks, std::list<Point> shells);
     void debugPrint();  //todo: deprecate
+    Player getPlayer(){ return player; }
+    uint8_t getWave(){ return wave; }
     std::list<Point> getHumans(){ return std::list<Point>(humans); }
     std::list<Point> getElectrodes(){ return std::list<Point>(electrodes); }
     std::list<Point> getGrunts(){ return std::list<Point>(grunts); }

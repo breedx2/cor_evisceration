@@ -218,6 +218,9 @@ WaveState::WaveState(Player p, uint8_t waveNum, std::list<Point> humanList, std:
 }
 
 void WaveState::debugPrint() {
+    if(DEBUG_PRINT){
+        return;
+    }
     printf("\n--------------------------------------------\n");
     printf(" :: player :: waveNum: %d, pos(%d,%d), lives %d, score: %d\n",
            wave, player.pos.x, player.pos.y, player.lives, player.score);

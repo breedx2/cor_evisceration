@@ -22,6 +22,8 @@ private:
     struct sockaddr_in server_addr;
 
     std::string buildMessage(WaveState);
+    std::string pointListToString(std::list<Point> points);
+    std::string pointToString(Point point);
 };
 
 #endif

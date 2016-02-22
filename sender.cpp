@@ -22,7 +22,6 @@ int Sender::start() {
 }
 
 void Sender::sendState(WaveState state) {
-    printf("sending wave state\n");
     sendMessage(buildStateMessage(state));
 }
 

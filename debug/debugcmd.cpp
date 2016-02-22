@@ -404,7 +404,7 @@ void debug_command_init(running_machine &machine)
 	debug_console_register_command(machine, "dumpkbd",   CMDFLAG_NONE, 0, 0, 1, execute_dumpkbd);
 
 	debug_console_register_command(machine, "evis_init",            CMDFLAG_NONE, 0, 0, 1, evis_init);
-	debug_console_register_command(machine, "evis_print",           CMDFLAG_NONE, 0, 1, MAX_COMMAND_PARAMS, evis_print);
+	debug_console_register_command(machine, "evis_state",           CMDFLAG_NONE, 0, 0, 1, evis_state);
 	debug_console_register_command(machine, "evis_game_booted",     CMDFLAG_NONE, 0, 0, 1, evis_game_booted);
 	debug_console_register_command(machine, "evis_game_start",      CMDFLAG_NONE, 0, 0, 1, evis_game_start);
 	debug_console_register_command(machine, "evis_game_over",       CMDFLAG_NONE, 0, 0, 1, evis_game_over);

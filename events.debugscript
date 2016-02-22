@@ -16,3 +16,4 @@ bp 4CAC,1,{evis_tank_spawn ; g}
 bp 1202,1,{evis_enforcer_spawn ; g}
 wp c80e,1,w,wpdata==22,{evis_enforcer_shot ; g}
 wp bded,1,w,1,{evis_wave "%d",b@bded; g}
+bp dc97,1,{evis_state ; g}

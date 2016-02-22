@@ -114,7 +114,7 @@ private:
 };
 
 void evis_init(running_machine &machine, int ref, int params, const char **param);
-void evis_print(running_machine &machine, int ref, int params, const char **param);
+void evis_state(running_machine &machine, int ref, int params, const char **param);
 void evis_game_booted(running_machine &machine, int ref, int params, const char **param);
 void evis_game_start(running_machine &machine, int ref, int params, const char **param);
 void evis_coin(running_machine &machine, int ref, int params, const char **param);

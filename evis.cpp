@@ -28,11 +28,8 @@ void evis_init(running_machine &machine, int ref, int params, const char **param
     printf("evisceration initialized.\n");
 }
 
-void evis_print(running_machine &machine, int ref, int params, const char **param) {
-    char buffer[1024];
-    expand_param(machine, params, param, buffer);
-    printf("%s", buffer);
-
+// send the full screen state to the remote
+void evis_state(running_machine &machine, int ref, int params, const char **param) {
     if (!game_started) return;
     WaveState state = build_wave(machine);
     state.debugPrint();

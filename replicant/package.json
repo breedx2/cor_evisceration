@@ -1,0 +1,15 @@
+{
+  "name": "replicant",
+  "version": "1.0.0",
+  "description": "A nodejs receiver for evisceration messages that attempts to recreate the screen in a terminal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "lodash": "^4.5.0"
+  }
+}

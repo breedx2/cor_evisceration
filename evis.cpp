@@ -62,6 +62,7 @@ void evis_grunt_killed(running_machine &machine, int ref, int params, const char
 }
 
 void evis_game_over(running_machine &machine, int ref, int params, const char **param) {
+    game_started = false;
     sender.sendMessage(GAME_OVER);
 }
 
@@ -239,9 +240,9 @@ std::list<Point> read_ptr_list(address_space *addr, uint16_t startPtr, std::set<
     do {
         debug_printf(" %02X", addr->read_byte(ptr + 2));
         if (types.find(addr->read_byte(ptr + 2)) != types.end()) {
-            uint8_t x = addr->read_byte(ptr + 4);
-            uint8_t y = addr->read_byte(ptr + 5);
-            result.push_back({ x, y });
+            uint8_t x = addr->read_byte(ptr + 4) - BOARD_MIN_X;
+            uint8_t y = addr->read_byte(ptr + 5) - BOARD_MIN_Y;
+            result.push_back({ x, y});
         }
         ptr = addr->read_word(ptr);
     } while (ptr);
